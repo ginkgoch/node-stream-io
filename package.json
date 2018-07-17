@@ -1,11 +1,15 @@
 {
-  "name": "stream-reader",
+  "name": "ginkgoch-stream-reader",
   "version": "1.0.0",
-  "description": "",
+  "description": "A stream reader for nodejs with async methods. No extra lib referenced.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": {
+    "name": "Ginkgoch",
+    "email": "ginkgoch@outlook.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/ginkgoch/node-stream-reader"
 }
