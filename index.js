@@ -18,7 +18,7 @@ module.exports = class StreamReader {
             if (buffer !== null) return res(buffer);
             that._readable.then(done => {
                 return done ? res(null) : slice(res, rej);
-            });
+            }).catch(rej);
         });
     }
 
