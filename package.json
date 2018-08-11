@@ -4,12 +4,15 @@
   "description": "A stream reader for nodejs with async methods. No extra lib referenced.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jest"
   },
   "author": {
     "name": "Ginkgoch",
     "email": "ginkgoch@outlook.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/ginkgoch/node-stream-reader"
+  "homepage": "https://github.com/ginkgoch/node-stream-reader",
+  "devDependencies": {
+    "jest": "^23.5.0"
+  }
 }
