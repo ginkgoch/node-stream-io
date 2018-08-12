@@ -39,11 +39,18 @@ describe('StreamReader test', () => {
 
         buffer = await sr.readV2(6);
         expect(buffer).toEqual(Buffer.from([7, 8, 9, 10, 11, 12]));
+        expect(sr.bufferCache.cache.length).toBe(9);
+        expect(sr.bufferCache.cache).toEqual(Buffer.from([ 7, 8, 9, 10, 11, 12, 13, 14, 15 ]));
+        expect(sr.bufferCache.cacheOffset).toBe(6);
 
         buffer = await sr.readV2(3);
         expect(buffer).toEqual(Buffer.from([13, 14, 15]));
+        expect(sr.bufferCache.cache).toEqual(Buffer.from([ 7, 8, 9, 10, 11, 12, 13, 14, 15 ]));
+        expect(sr.bufferCache.cacheOffset).toBe(6);
 
         buffer = await sr.readV2(3);
         expect(buffer).toEqual(Buffer.alloc(0));
+        expect(sr.bufferCache.cache).toEqual(Buffer.alloc(0));
+        expect(sr.bufferCache.cacheOffset).toBe(15);
     });
 });
