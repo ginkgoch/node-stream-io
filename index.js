@@ -1,5 +1,11 @@
+const BufferCache = require('./BufferCache');
+
 module.exports = class StreamReader {
     constructor(stream) {
+        this.position = 0;
+        this.bufferCache = new BufferCache();
+        this.bufferCache.fetchCache = this._fetchCache.bind(this);
+        this.bufferCacheCapacity = 0x200000;
         this._readable = this._promise(this);
         this._stream = stream.on('readable', this._read.bind(this))
             .on('end', this._end.bind(this))
@@ -9,6 +15,10 @@ module.exports = class StreamReader {
 
     async open() {
         return await this._resolve;
+    }
+
+    async readV2(length) {
+        return await this.bufferCache.read(length);
     }
 
     async read(length) {
@@ -58,4 +68,14 @@ module.exports = class StreamReader {
     }
 
     _empty() { }
+
+    async _fetchCache(position, length) {
+        const cacheSize = Math.max(length, this.bufferCacheCapacity);
+        const buffer = await this.read(cacheSize);
+        if (buffer !== null) {
+            this.position += buffer.length;
+        }
+
+        return buffer;
+    }
 }

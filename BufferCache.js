@@ -4,14 +4,18 @@ const assert = require('assert');
 module.exports = class BufferCache extends EventEmitter {
     constructor(cache, cacheOffset) {
         super();
-        this.update(cache, cacheOffset);
+        this.fetchCache = undefined;
+        if (cache !== undefined && cacheOffset !== undefined) {
+            this.update(cache, cacheOffset);
+        }
     }
 
-    read(length) {
-        this._updateCache(length);
+    async read(length) {
+        await this._updateCache(length);
+        if(this._isEmpty()) return Buffer.alloc(0);
 
         const buffer = this.cache.slice(this.position, this.position + length);
-        this.position += length;
+        this.position += buffer.length;
         return buffer;
     }
 
@@ -21,15 +25,30 @@ module.exports = class BufferCache extends EventEmitter {
         this.cacheOffset = cacheOffset;
     }
 
-    _updateCache(length) {
-        if (this.position + length <= this.cache.length) { return; }
+    async _updateCache(length) {
+        if (!this._isEmpty() && this.position + length <= this.cache.length) { return; }
 
         const absPosition = this.cacheOffset + this.position;
-        this.emit('update', absPosition, length);
-        this._checkNotOOB(length);
+        let newCache = Buffer.alloc(0);
+        if (this.fetchCache) {
+            newCache = await this.fetchCache(absPosition, length);
+        }
+
+        console.log(newCache);
+        const restCache = this._getRestCache();
+        this.update(Buffer.concat([restCache, newCache]), absPosition);
     }
 
-    _checkNotOOB(length) {
-        assert((this.position + length <= this.cache.length), 'Buffer reads out of bounds'); 
+    _getRestCache() {
+        let rest = null;
+        if (!this._isEmpty() && this.position < this.cache.length - 1) {
+            rest = this.cache.slice(this.position);  
+        }
+
+        return rest || Buffer.alloc(0);
+    }
+
+    _isEmpty() {
+        return this.cache === undefined || this.cache === null || this.cacheOffset === undefined;
     }
 }
