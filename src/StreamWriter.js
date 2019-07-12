@@ -22,6 +22,10 @@ module.exports = class StreamWriter {
         })
     }
 
+    async writeLine(str, encoding = 'utf-8') {
+        await this.write(str + '\r\n', encoding)
+    }
+
     async end() {
         return await new Promise(res => { 
             this.stream.end(() => {
