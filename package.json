@@ -1,5 +1,5 @@
 {
-  "name": "ginkgoch-stream-reader",
+  "name": "ginkgoch-stream-io",
   "version": "1.0.1",
   "description": "A stream reader for nodejs with async methods. No extra lib referenced.",
   "main": "index.js",
@@ -11,5 +11,5 @@
     "email": "ginkgoch@outlook.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/ginkgoch/node-stream-reader"
+  "homepage": "https://github.com/ginkgoch/node-stream-io"
 }
