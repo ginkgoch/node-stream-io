@@ -1,7 +1,7 @@
 {
   "name": "ginkgoch-stream-io",
-  "version": "1.0.1",
-  "description": "A stream reader for nodejs with async methods. No extra lib referenced.",
+  "version": "1.1.0",
+  "description": "A stream reader/writer for nodejs with async methods. No extra lib referenced.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
