@@ -1,6 +1,6 @@
 {
   "name": "ginkgoch-stream-io",
-  "version": "1.1.0",
+  "version": "1.2.0-beta",
   "description": "A stream reader/writer for nodejs with async methods. No extra lib referenced.",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
