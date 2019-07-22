@@ -1,15 +1,20 @@
 {
   "name": "ginkgoch-stream-io",
-  "version": "1.1.0",
+  "version": "1.2.0-beta",
   "description": "A stream reader/writer for nodejs with async methods. No extra lib referenced.",
-  "main": "index.js",
+  "main": "./built/index.js",
+  "types": "./built/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/tsc"
   },
   "author": {
     "name": "Ginkgoch",
     "email": "ginkgoch@outlook.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/ginkgoch/node-stream-io"
+  "homepage": "https://github.com/ginkgoch/node-stream-io",
+  "devDependencies": {
+    "@types/node": "^12.6.8",
+    "typescript": "^3.5.3"
+  }
 }

@@ -1,8 +1,12 @@
-module.exports = class StreamWriter {
+import { WriteStream } from "fs";
+
+export default class StreamWriter {
+    stream: WriteStream
+
     /**
      * @param {stream.Writable} stream Writable stream.
      */
-    constructor(stream) {
+    constructor(stream: WriteStream) {
         this.stream = stream
     }
 
@@ -14,20 +18,20 @@ module.exports = class StreamWriter {
         this.stream.uncork()
     }
 
-    async write(chunk, encoding = 'utf-8') {
-        return await new Promise(res => {
+    write(chunk: any, encoding = 'utf-8'): Promise<void> {
+        return new Promise<void>(res => {
             this.stream.write(chunk, encoding, () => {
                 res()
             })
         })
     }
 
-    async writeLine(str, encoding = 'utf-8') {
+    async writeLine(str: string, encoding = 'utf-8') {
         await this.write(str + '\r\n', encoding)
     }
 
-    async end() {
-        return await new Promise(res => { 
+    end(): Promise<void> {
+        return new Promise<void>(res => { 
             this.stream.end(() => {
                 res()
             }) 
