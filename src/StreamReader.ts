@@ -18,7 +18,7 @@ export default class StreamReader {
         return await this._resolve;
     }
 
-    async read(length: number) {
+    async read(length: number): Promise<Buffer|null> {
         let that = this;
         return await new Promise(function slice(res, rej) {
             let buffer = that._stream.read(length);
